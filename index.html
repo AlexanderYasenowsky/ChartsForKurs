@@ -1,0 +1,32 @@
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://knockoutjs.com/downloads/knockout-3.4.0.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+  <body>
+    <div class = "content-flexbox">
+        <div id ="information-about-chart" class = "information">
+          <p>name  <input type="text" data-bind="textInput: name" id ="name"></p>
+          <p>Germany  <input type="text" data-bind="textInput: Germany" id ="germany"></p>
+          <p>United_States  <input type="text" data-bind="textInput: United_States"></p>
+          <p>Brazil  <input type="text" data-bind="textInput: Brazil"></p>
+          <p>France  <input type="text" data-bind="textInput: France"></p>
+          <p>Russia  <input type="text" data-bind="textInput: Russia"></p>
+          <div class = "row">
+                <table id ="in">
+
+                </table>
+          </div>
+          <div class = "buttons">
+              <button type="button" name="button" id = 'pie'>Pie</button>
+                <button type="button" name="button" id = 'geo'>Geo</button>
+                    <button type="button" name="button" id = 'bar'>Bar</button>
+            </div>
+        </div>
+        <div id="piechart" class = "information"></div>
+    </div>
+  <script type="text/javascript" src = "script.js"></script>
+  </body>

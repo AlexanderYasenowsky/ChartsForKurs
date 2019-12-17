@@ -1,0 +1,20 @@
+.content-flexbox{
+  display: flex;
+  width: 60%;
+  height: 50%;
+  justify-content: center;
+  margin: 0 auto;
+}
+.information{
+  width: 100%;
+  height: 100%;
+}
+
+td{
+  border-style: groove;
+}
+
+button{
+  width: 80px;
+  height: 40px;
+}
