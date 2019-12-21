@@ -1,0 +1,52 @@
+body{
+  background-color: lightskyblue;
+}
+
+.content-flexbox{
+  display: flex;
+  width: 90%;
+  height: 90%;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.about-programm{
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.data{
+  width: 45%;
+  padding-top : 2.5%;
+  padding-bottom: 2.5%;
+  margin-left: 5%;
+}
+
+button{
+  width: 100px;
+  height: 250px;
+}
+
+table {
+  font-size: 20px;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 2px solid black;
+  height: 30px;
+}
+
+
+
+input{
+  background-color: whitesmoke;
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+}
