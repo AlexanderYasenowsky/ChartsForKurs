@@ -6,34 +6,26 @@
 </head>
 
   <body>
+    <div class ="options">
+        <input id="name_colors" rows="8" cols="80" data-bind="textInput: colorOfHeaders"></input>
+      <button type="button" name="button" id ="create">Создать</button>
+      <button type="button" name="button" id ="delete">Удалить</button>
+
+    </div>
     <div class = "content-flexbox">
 
             <div class = "data" id = "speed-table"></div>
-
-            <div class = "data" id = "speed">
-                <div id="piechart" class = "information"></div>
-            </div>
-
+            <div class = "charts" id = "speed-chart"></div>
             <div class = "data" id = "acs-table"></div>
-
-            <div class = "data" id = "speed">
-                <div id="piechart1" class = "information"></div>
-            </div>
-
+            <div class = "charts" id = "acs-chart"></div>
             <div class = "data" id = "eff-table"></div>
-
-            <div class = "data" id = "speed">
-                <div id="piechart2" class = "information"></div>
-            </div>
-
+            <div class = "charts" id = "eff-chart"></div>
             <div class = "data" id = "cost-table"></div>
-
-            <div class = "data" id = "speed">
-                <div id="piechart3" class = "information"></div>
-            </div>
+            <div class = "charts" id = "cost-chart"></div>
 
         </div>
 
-        <button type="button" name="button" id ="create"></button>
-        <button type="button" name="button" id ="add"></button>
+
+
+
   </body>

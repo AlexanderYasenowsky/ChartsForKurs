@@ -4,8 +4,8 @@ body{
 
 .content-flexbox{
   display: flex;
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 80%;
   align-items: center;
   justify-content: space-around;
   margin: 0 auto;
@@ -21,15 +21,15 @@ body{
 }
 
 .data{
-  width: 45%;
+  width: 40%;
   padding-top : 2.5%;
   padding-bottom: 2.5%;
-  margin-left: 5%;
+  margin-left: 2%;
 }
 
 button{
   width: 100px;
-  height: 250px;
+  height: 50px;
 }
 
 table {
@@ -42,11 +42,38 @@ th, td {
   height: 30px;
 }
 
+th > input {
+  background-color: green;
+  text-align: center;
+}
 
+td > input{
+    text-align: center;
+}
 
 input{
   background-color: whitesmoke;
   width: 100%;
   height: 100%;
   font-size: 20px;
+}
+
+.charts{
+  margin-top: 5%;
+  margin-bottom: 3%;
+}
+
+.custom_headers{
+  color:red;
+}
+
+.options{
+  width: 100%;
+  height: 150px;
+  background-color: whitesmoke;
+}
+
+.options > input{
+  width: 100px;
+  height: 50px;
 }
