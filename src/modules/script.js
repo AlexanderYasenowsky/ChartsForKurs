@@ -1,6 +1,6 @@
 google.charts.load('current', {'packages':['corechart']});
 import createTables from './createTables';
-
+var overflow = document.createElement('div');
 var info = ([
   ["p/n", 10,1000,10000,100000,1000000],
   [1,0.5,0.8,1.5,2.8,3],
@@ -9,24 +9,26 @@ var info = ([
   [8,1,1.2,1.5,2,2.3],
   [16,1.5,2.1,3,5,7],
   [32,1.5,2.1,3,5,9],
-  [64,1.5,2.1,3,9.5,10],
+  [64,1.5,2.1,3,9.5,25],
 ]);
 
 var newArray = info.slice();
 newArray.splice(0,1);
 
+
 var viewModel = {
-  name: ko.observableArray(newArray),
+  dataForTable: ko.observableArray(info),
+  name: ko.observable(newArray),
   colorOfHeaders: ko.observable(),
 }
 
-function drawCurveTypes(name, title) {
+function drawCurveTypes(data_for_chart,name, title) {
       var data = new google.visualization.DataTable();
       data.addColumn('number', 'X');
       for(let i = 1; i< info[0].length; i++){
         data.addColumn('number', String(info[0][i]) + " элементов");
       }
-      data.addRows(newArray);
+      data.addRows(data_for_chart);
       var options = {
         chart: {
           title: 'Average Temperatures and Daylight in Iceland Throughout the Year'
@@ -66,7 +68,7 @@ function drawCurveTypes(name, title) {
         },
         'width': 900,
         'height': 325,
-        'tilte': "График зависимости",
+        tilte: "График зависимости",
       };
       var chart = new google.visualization.LineChart(document.getElementById(name));
       chart.draw(data, options);
@@ -77,20 +79,21 @@ $("#create").click(function(){
     document.getElementById("acs-table").innerHTML ="";
     document.getElementById("eff-table").innerHTML ="";
     document.getElementById("cost-table").innerHTML ="";
-    createTables.buildTables(info, "speed-table", "Скорость выполнения программы в секундах");
-    createTables.buildTables(info, "acs-table", "Ускорение параллельных вычислений");
-    createTables.buildTables(info, "eff-table", "Эффективность парралельных вычислений");
-    createTables.buildTables(info, "cost-table", "Стоимость парралельных вычислений");
+    createTables.buildTables(viewModel.dataForTable(), "speed-table", "Скорость выполнения программы в секундах");
+    createTables.buildTables(viewModel.dataForTable(), "acs-table", "Ускорение параллельных вычислений");
+    createTables.buildTables(viewModel.dataForTable(), "eff-table", "Эффективность парралельных вычислений");
+    createTables.buildTables(viewModel.dataForTable(), "cost-table", "Стоимость парралельных вычислений");
     document.getElementById('speed-chart').innerHTML="";
     document.getElementById('acs-chart').innerHTML="";
     document.getElementById('eff-chart').innerHTML="";
     document.getElementById('cost-chart').innerHTML="";
-    drawCurveTypes('speed-chart', "Время выполнения программы в секундах" );
-    drawCurveTypes('acs-chart', "Ускорение параллельных вычислений");
-    drawCurveTypes('eff-chart', "Эффективность парралельных вычислений");
-    drawCurveTypes('cost-chart', "Cтоимость парралельных вычислений");
+    drawCurveTypes(viewModel.name(),'speed-chart', "Время выполнения программы в секундах" );
+    drawCurveTypes(viewModel.name(),'acs-chart', "Ускорение параллельных вычислений");
+    drawCurveTypes(viewModel.name(),'eff-chart', "Эффективность парралельных вычислений");
+    drawCurveTypes(viewModel.name(),'cost-chart', "Cтоимость парралельных вычислений");
+    modal.style.top = "-100%";
+    overflow.remove();
     ko.applyBindings(viewModel);
-
 });
 
 $("#delete").click(function(){
@@ -112,6 +115,29 @@ viewModel.colorOfHeaders.subscribe(function(){
   createTables.changeProperties('cost-table', viewModel.colorOfHeaders());
 });
 
-viewModel.name.subscribe(function () {
-  alert("h1");
+viewModel.dataForTable.subscribe(function(){
+
 });
+/*$("#add").click(function(){
+  overflow.className = "overflow";
+  document.body.appendChild(overflow);
+  var height = modal.offsetHeight;
+  modal.style.marginTop = - height / 2 + "px";
+  modal.style.top = "50%";
+})
+
+overflow.onclick = function () {
+    modal.style.top = "-100%";
+    document.getElementById("table-to-count-1").innerHTML="";
+    overflow.remove();
+}
+
+$("#buttonTables-confirm").click(function(){
+  modal.style.top = "-100%";
+  document.getElementById("table-to-count-1").innerHTML="";
+  overflow.remove();
+})
+
+$("#add").click(function(){
+   createTables.buildTables(info, "table-to-count", '');
+});*/

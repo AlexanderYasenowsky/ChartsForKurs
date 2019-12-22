@@ -7,8 +7,10 @@
 
   <body>
     <div class ="options">
-        <input id="name_colors" rows="8" cols="80" data-bind="textInput: colorOfHeaders"></input>
-      <button type="button" name="button" id ="create">Создать</button>
+
+        <input id="name_colors" rows="80" cols="100" data-bind="textInput: dataForTable"></input>
+
+          <button id ="create" class = "buttonTables">Добавить</button>
       <button type="button" name="button" id ="delete">Удалить</button>
 
     </div>
@@ -23,9 +25,15 @@
             <div class = "data" id = "cost-table"></div>
             <div class = "charts" id = "cost-chart"></div>
 
-        </div>
-
-
-
-
+      </div>
+      <div id ="modal" class = "modal">
+            <h1>Данные для отчета</h1>
+            <div>
+                <div id = "table-to-count">
+                   <button type="button" name="button" id ="create">Создать отчет</button>
+                   <button id = "create-str">Добавить строку</button>
+                   <button id = "create-stlb">Добавить столбец</button>
+                  <div>
+             </div>
+         </div>
   </body>

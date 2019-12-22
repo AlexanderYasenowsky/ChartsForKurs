@@ -8,7 +8,11 @@ module.exports = {
    let tr = document.createElement('tr');
    for(let i=0; i<information[0].length; i++ ){
         let data = document.createElement('th');
-        data.innerHTML = "<input value = "+ information[0][i] + ">";
+        if(i==0){
+          data.innerHTML = "<input disabled = 'true' value = "+ information[0][i] + ">";
+        }else{
+          data.innerHTML = "<input  value = "+ information[0][i] + ">";
+        }
         tr.appendChild(data);
    }
    table.appendChild(tr);
@@ -20,10 +24,9 @@ module.exports = {
           } else{
             data = document.createElement('td');
           }
-            data.innerHTML = "<input  type='text' data-bind='textInput: name()["+(j-1)+"]["+i+"]'>";
-
+            data.innerHTML = "<input  type='text' data-bind='textInput: dataForTable'>";
           tr.appendChild(data);
-      }
+      }//
       table.appendChild(tr);
     }
     table.setAttribute("id", id + "-1")
