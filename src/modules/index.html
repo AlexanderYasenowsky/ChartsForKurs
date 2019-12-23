@@ -6,34 +6,34 @@
 </head>
 
   <body>
-    <div class ="options">
 
-        <input id="name_colors" rows="80" cols="100" data-bind="textInput: dataForTable"></input>
+<div class = "wrapper">
+  <div class = header><h1>Психология</h1></div>
+    <div id = "go"><div>
+    <div class = "content-flexbox" id ="for_table">
 
-          <button id ="create" class = "buttonTables">Добавить</button>
-      <button type="button" name="button" id ="delete">Удалить</button>
+      <div id = "options">
+        <p>Имя<input type="text"  class = "options-for-add" id = "add-input" value="" data-bind='textInput: nameForAdd' ></p>
+        <p>Пол    <select id ="select-gender" data-bind="options: companyForAdd"></select></p>
+        <p>Коэффициент<input type="text" id = "dispersia-input" class = "options-for-add" data-bind='textInput: dispersiaForAdd'></p>
+        <button type="button" disabled = "true" id="add" name="button">Добавить</button>
+        <p>Имя для удаления<input id = "delete-input" data-bind='textInput: nameForDelete'></p>
+        <button type="button"  disabled = "true" id="delete" name="button">Удалить</button>
+      </div>
 
-    </div>
-    <div class = "content-flexbox">
+      <div id =nado></div>
 
-            <div class = "data" id = "speed-table"></div>
-            <div class = "charts" id = "speed-chart"></div>
-            <div class = "data" id = "acs-table"></div>
-            <div class = "charts" id = "acs-chart"></div>
-            <div class = "data" id = "eff-table"></div>
-            <div class = "charts" id = "eff-chart"></div>
-            <div class = "data" id = "cost-table"></div>
-            <div class = "charts" id = "cost-chart"></div>
+      <div id = properties>
+          <p>Цвет каймы<input type="text" data-bind='textInput: colorForCells' ><p>
+          <p>Цвет текста<input type="text" data-bind='textInput: colorForText'><p>
+          <p>Цвет ячейки<input type="text" data-bind='textInput: colorForInCells'><p>
+      </div>
 
       </div>
-      <div id ="modal" class = "modal">
-            <h1>Данные для отчета</h1>
-            <div>
-                <div id = "table-to-count">
-                   <button type="button" name="button" id ="create">Создать отчет</button>
-                   <button id = "create-str">Добавить строку</button>
-                   <button id = "create-stlb">Добавить столбец</button>
-                  <div>
-             </div>
-         </div>
+
+      <div class = chart-flexbox>
+            <div id="piechart"></div>
+      </div>
+
+    </div>
   </body>

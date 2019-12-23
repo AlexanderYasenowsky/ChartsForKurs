@@ -1,104 +1,73 @@
 body{
-  background-color: lightskyblue;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
-.content-flexbox{
+
+.content-flexbox {
+  padding-top: 2%;
   display: flex;
   width: 100%;
-  height: 80%;
-  align-items: center;
-  justify-content: space-around;
-  margin: 0 auto;
-  flex-wrap: wrap;
+  height: 50%;
+  justify-content: center;
+  font-size: 18px;
 }
 
-.about-programm{
+#piechart{
+  margin-top: 50px;
+  margin-left: 0;
+}
+
+.chart-flexbox {
   display: flex;
   width: 50%;
-  flex-direction: column;
-  align-items: center;
+  height: 50%;
   justify-content: center;
+  margin: 0 auto;
 }
 
-.data{
-  width: 45%;
-  padding-top : 2.5%;
-  padding-bottom: 2.5%;
-  margin-left: 2%;
+.header{
+  text-align: center;
+  color: whitesmoke;
+  font: bold  110% serif;
+  width: 99%;
+  height: 80px;
+  background-color: lightskyblue;
+  margin: 0 auto;
+}
+.wrapper{
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-flexbox > div {
+  padding-right: 50px;
+}
+
+#PieChart{
+  width: 50%;
 }
 
 button{
-  width: 100px;
-  height: 50px;
-}
-
-table {
-  font-size: 20px;
-  border-collapse: collapse;
-}
-
-th, td {
-  border: 2px solid black;
+  width: 70%;
   height: 30px;
+  margin-left: 10%;
 }
 
-th > input {
-  background-color: green;
+
+td > input {
+  background-color: whitesmoke;
   text-align: center;
-  color: yellow;
+  color: black;
+  width: 100% auto;
+  font-size: 18px;
 }
 
-td > input{
-    text-align: center;
+table{
+  margin-bottom: 2%;
 }
 
 input{
-  background-color: whitesmoke;
   width: 100%;
-  height: 100%;
-  font-size: 20px;
-}
-
-.charts{
-  margin-top: 5%;
-  margin-bottom: 3%;
-}
-
-.custom_headers{
-  color:red;
-}
-
-.options{
-  width: 100%;
-  height: 150px;
-  background-color: whitesmoke;
-}
-
-.options > input{
-  width: 100%;
-  height: 50px;
-}
-
-
-.modal {
-  position: absolute;
-  width: 80%;
-  left: 10%;
-  height: 50%;
-  margin: 0 auto;
-  top: -100%;
-  background: #fff;
-  border: 1px solid #333;
-  z-index: 9999;
-  transition: all 0.5s ease-in;
-}
-
-.overflow {
-  width: 100%;
-  height: 100%;
-  z-index: 9998;
-  background: rgba(0,0,0,0.8);
-  position: absolute;
-  top: 0;
-  left: 0;
 }

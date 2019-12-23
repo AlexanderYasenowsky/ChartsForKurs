@@ -1,143 +1,146 @@
 google.charts.load('current', {'packages':['corechart']});
-import createTables from './createTables';
-var overflow = document.createElement('div');
-var info = ([
-  ["p/n", 10,1000,10000,100000,1000000],
-  [1,0.5,0.8,1.5,2.8,3],
-  [2,0.6,0.7,1.2,2.2,2.5],
-  [4,0.8,0.4,0.6,1.2,1.8],
-  [8,1,1.2,1.5,2,2.3],
-  [16,1.5,2.1,3,5,7],
-  [32,1.5,2.1,3,5,9],
-  [64,1.5,2.1,3,9.5,25],
-]);
+import table from './createTables';
+var newArray =[];
+newArray.push(new Phone("Имя", "Пол", "Значение", "Значение", "Значение"));
 
-var newArray = info.slice();
-newArray.splice(0,1);
-
-
-var viewModel = {
-  dataForTable: ko.observableArray(info),
-  name: ko.observable(newArray),
-  colorOfHeaders: ko.observable(),
+function Phone(name,company,gender,dispersia,math){
+    this.name = ko.observable(name);
+    this.company = ko.observable(company);
+    this.gender = ko.observable(gender);
+    this.dispersia = ko.observable(dispersia);
+    this.math= ko.observable(math);
 }
 
-function drawCurveTypes(data_for_chart,name, title) {
-      var data = new google.visualization.DataTable();
-      data.addColumn('number', 'X');
-      for(let i = 1; i< info[0].length; i++){
-        data.addColumn('number', String(info[0][i]) + " элементов");
-      }
-      data.addRows(data_for_chart);
-      var options = {
-        chart: {
-          title: 'Average Temperatures and Daylight in Iceland Throughout the Year'
-        },
-        hAxis: {
-          title: 'Кол-во процессов/потоков'
-        },
-        vAxis: {
-          title: title
-        },
-        series: {
-          0: {
-            curveType: 'function',
-            pointShape: 'circle',
-            pointSize: 10
-          },
-          1: {
-            curveType: 'function',
-            pointShape: 'circle',
-            pointSize: 10
-          },
-          2: {
-            curveType: 'function',
-            pointShape: 'circle',
-            pointSize: 10
-          },
-          3: {
-            curveType: 'function',
-            pointShape: 'circle',
-            pointSize: 10
-          },
-          4: {
-            curveType: 'function',
-            pointShape: 'circle',
-            pointSize: 10
-          }
-        },
-        'width': 900,
-        'height': 325,
-        tilte: "График зависимости",
-      };
-      var chart = new google.visualization.LineChart(document.getElementById(name));
-      chart.draw(data, options);
+var viewModel ={
+    phones:  ko.observableArray(newArray),
+    nameForAdd: ko.observable(),
+    dispersiaForAdd: ko.observable(),
+    nameForDelete: ko.observable(),
+    companyForAdd: ko.observableArray(['Мужской', 'Женский']),
+    colorForText: ko.observable(),
+    colorForCells: ko.observable(),
+    colorForInCells: ko.observable()
+};
+
+
+window.onload = function(){
+  let div = document.getElementById("nado");
+  div.innerHTML = '<table id = "fack" data-bind = "foreach: phones"><table>';
+  let tr = document.createElement('tr');
+  for(let i=0; i< 5; i++ ){
+      let data = document.createElement('td');
+       if(i==0){
+         data.innerHTML = "<input data-bind='textInput: name'>"
+       }
+       else if(i==1){
+         data.innerHTML = "<input disabled = 'true' data-bind='textInput: company'>"
+       }
+       else if(i==2){
+         data.innerHTML = "<input disabled = 'true' data-bind='textInput: gender'>"
+       }
+       else if(i==3){
+         data.innerHTML = "<input disabled = 'true' data-bind='textInput: dispersia'>"
+       }
+       else if(i==4){
+         data.innerHTML = "<input disabled = 'true' data-bind='textInput: math'>"
+       }
+       data.setAttribute('class', 'mystyle');
+       tr.appendChild(data);
+  }
+  document.getElementById("fack").appendChild(tr);
+  ko.applyBindings(viewModel);
+  drawChart();
 }
 
-$("#create").click(function(){
-    document.getElementById("speed-table").innerHTML ="";
-    document.getElementById("acs-table").innerHTML ="";
-    document.getElementById("eff-table").innerHTML ="";
-    document.getElementById("cost-table").innerHTML ="";
-    createTables.buildTables(viewModel.dataForTable(), "speed-table", "Скорость выполнения программы в секундах");
-    createTables.buildTables(viewModel.dataForTable(), "acs-table", "Ускорение параллельных вычислений");
-    createTables.buildTables(viewModel.dataForTable(), "eff-table", "Эффективность парралельных вычислений");
-    createTables.buildTables(viewModel.dataForTable(), "cost-table", "Стоимость парралельных вычислений");
-    document.getElementById('speed-chart').innerHTML="";
-    document.getElementById('acs-chart').innerHTML="";
-    document.getElementById('eff-chart').innerHTML="";
-    document.getElementById('cost-chart').innerHTML="";
-    drawCurveTypes(viewModel.name(),'speed-chart', "Время выполнения программы в секундах" );
-    drawCurveTypes(viewModel.name(),'acs-chart', "Ускорение параллельных вычислений");
-    drawCurveTypes(viewModel.name(),'eff-chart', "Эффективность парралельных вычислений");
-    drawCurveTypes(viewModel.name(),'cost-chart', "Cтоимость парралельных вычислений");
-    modal.style.top = "-100%";
-    overflow.remove();
-    ko.applyBindings(viewModel);
-});
+
+function drawChart() {
+    let man = 0;
+    let woman = 0;
+    for(let i = 0; i < viewModel.phones().length; i++){
+        if(viewModel.phones()[i].company() == "Мужской"){
+          man++
+        }
+        else if (viewModel.phones()[i].company() == "Женский"){
+          woman++;
+        }
+    }
+        var data = google.visualization.arrayToDataTable([
+          ['Test', '%'],
+          ['М',    man],
+          ['Ж',    woman],
+        ]);
+        var options = {
+          title: 'Cотношение мужчин и женщин в исследовании',
+          sliceVisibilityThreshold: .2
+          };
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+  }
+
+viewModel.phones.subscribe(function(){
+  if(viewModel.phones().length == 1){
+      document.getElementById("delete").setAttribute("disabled", "true");
+  }
+  document.getElementById("delete").removeAttribute("disabled");
+  drawChart();
+  viewModel.nameForAdd("");
+  viewModel.dispersiaForAdd("");
+})
 
 $("#delete").click(function(){
-  createTables.deleteTable("speed-table");
-  createTables.deleteTable("speed-chart");
-  createTables.deleteTable("acs-table");
-  createTables.deleteTable("acs-chart");
-  createTables.deleteTable("eff-table");
-  createTables.deleteTable("eff-chart");
-  createTables.deleteTable("cost-table");
-  createTables.deleteTable("cost-chart");
-  document.getElementById("name_colors").value = "";
-})
-
-viewModel.colorOfHeaders.subscribe(function(){
-  createTables.changeProperties('speed-table', viewModel.colorOfHeaders());
-  createTables.changeProperties('acs-table', viewModel.colorOfHeaders());
-  createTables.changeProperties('eff-table', viewModel.colorOfHeaders());
-  createTables.changeProperties('cost-table', viewModel.colorOfHeaders());
-});
-
-viewModel.dataForTable.subscribe(function(){
-
-});
-/*$("#add").click(function(){
-  overflow.className = "overflow";
-  document.body.appendChild(overflow);
-  var height = modal.offsetHeight;
-  modal.style.marginTop = - height / 2 + "px";
-  modal.style.top = "50%";
-})
-
-overflow.onclick = function () {
-    modal.style.top = "-100%";
-    document.getElementById("table-to-count-1").innerHTML="";
-    overflow.remove();
+  if(viewModel.phones().length > 1){
+  for(let i = 1; i<viewModel.phones().length;i++){
+    if(viewModel.phones()[i].name() == viewModel.nameForDelete()){
+      viewModel.phones.splice(i,1);
+      document.getElementById("delete-input").value="";
+      return;
+    }
+  }
 }
+  alert("Такого человека нет!");
+});
 
-$("#buttonTables-confirm").click(function(){
-  modal.style.top = "-100%";
-  document.getElementById("table-to-count-1").innerHTML="";
-  overflow.remove();
-})
+viewModel.nameForAdd.subscribe(function(){
+    if(viewModel.nameForAdd() != "" && viewModel.dispersiaForAdd() != ""  ){
+       document.getElementById("add").removeAttribute("disabled");
+    }else{
+      document.getElementById("add").setAttribute("disabled", "true");
+    }
+});
+
 
 $("#add").click(function(){
-   createTables.buildTables(info, "table-to-count", '');
-});*/
+  let options = document.getElementsByClassName('options-for-add');
+  for(let i = 0; i < options.length; i++){
+    options[i].value = "";
+  }
+  viewModel.phones.push(new Phone(viewModel.nameForAdd(),
+                                   $("#select-gender option:selected").text(),
+                                   viewModel.dispersiaForAdd(),
+                                   "32",
+                                   "2"));
+   table.changeColorText('td > input', viewModel.colorForText());
+   table.changeColorCells('.mystyle', viewModel.colorForCells());
+   table.changeColorCells('td > input', viewModel.colorForInCells());
+});
+
+viewModel.colorForCells.subscribe(function(){
+  table.changeColorCells('.mystyle', viewModel.colorForCells());
+});
+
+viewModel.colorForText.subscribe(function(){
+    table.changeColorText('td > input', viewModel.colorForText());
+});
+
+viewModel.colorForInCells.subscribe(function(){
+    table.changeColorCells('td > input', viewModel.colorForInCells());
+});
+
+
+viewModel.dispersiaForAdd.subscribe(function(){
+  if(viewModel.nameForAdd() != "" && viewModel.dispersiaForAdd() != ""  ){
+     document.getElementById("add").removeAttribute("disabled");
+  }else{
+    document.getElementById("add").setAttribute("disabled", "true");
+  }
+})

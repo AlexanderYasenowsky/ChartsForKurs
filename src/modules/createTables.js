@@ -24,7 +24,7 @@ module.exports = {
           } else{
             data = document.createElement('td');
           }
-            data.innerHTML = "<input  type='text' data-bind='textInput: dataForTable'>";
+            data.innerHTML = "<input  type='text' value =" + information[j][i]+ ">";
           tr.appendChild(data);
       }//
       table.appendChild(tr);
@@ -32,12 +32,13 @@ module.exports = {
     table.setAttribute("id", id + "-1")
     document.getElementById(id).appendChild(table);
   },
-  changeProperties: function (name_of_block, color = "brown") {
-    let block = document.getElementById(name_of_block);
-    block.childNodes[0].style.color= color;
-
+  changeColorCells: function (name_of_block, color) {
+    $(name_of_block).css('background-color', color);
   },
   deleteTable: function (name_of_block){
     document.getElementById(name_of_block).innerHTML ="";
+  },
+  changeColorText: function (name_of_block, color) {
+    $(name_of_block).css('color', color);
   }
 }
