@@ -7,6 +7,14 @@ module.exports ={
     filename: 'builder.js',
     path: path.resolve(__dirname, 'dist')
   },
+  devServer: {
+    host: '0.0.0.0',
+    contentBase: '/app/dist',
+    hot: true,
+    compress: true,
+    port: 9000,
+    disableHostCheck: true
+},
   module: {
     rules: [
       {
