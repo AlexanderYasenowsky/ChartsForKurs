@@ -1,8 +1,12 @@
 google.charts.load('current', {'packages':['corechart']});
-import table from './createTables';
+var table = require('./createTables.js');
+google.charts.setOnLoadCallback(drawChart);
 var newArray =[];
 newArray.push(new Phone("Имя", "Пол", "Коэффициент", "Адаптация", "Девианта"));
 
+function went(i){
+  return 1+1;
+}
 function disp(coefficient){
     return (2 * Math.cos(coefficient) / (Math.sqrt(coefficient) * Math.sqrt(coefficient + 1)) + 0.1).toFixed(5)
 }
