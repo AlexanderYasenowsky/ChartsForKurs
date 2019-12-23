@@ -55,13 +55,12 @@ button{
   margin-left: 10%;
 }
 
-
 td > input {
   background-color: whitesmoke;
   text-align: center;
   color: black;
   width: 100% auto;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 table{

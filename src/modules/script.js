@@ -1,7 +1,15 @@
 google.charts.load('current', {'packages':['corechart']});
 import table from './createTables';
 var newArray =[];
-newArray.push(new Phone("Имя", "Пол", "Значение", "Значение", "Значение"));
+newArray.push(new Phone("Имя", "Пол", "Коэффициент", "Адаптация", "Девианта"));
+
+function disp(coefficient){
+    return (2 * Math.cos(coefficient) / (Math.sqrt(coefficient) * Math.sqrt(coefficient + 1)) + 0.1).toFixed(5)
+}
+
+function mat(coefficient){
+    return ((Math.log(coefficient)/2) * Math.sin(coefficient) + 10).toFixed(5)
+}
 
 function Phone(name,company,gender,dispersia,math){
     this.name = ko.observable(name);
@@ -13,13 +21,13 @@ function Phone(name,company,gender,dispersia,math){
 
 var viewModel ={
     phones:  ko.observableArray(newArray),
-    nameForAdd: ko.observable(),
-    dispersiaForAdd: ko.observable(),
-    nameForDelete: ko.observable(),
+    nameForAdd: ko.observable(""),
+    dispersiaForAdd: ko.observable(""),
+    nameForDelete: ko.observable(""),
     companyForAdd: ko.observableArray(['Мужской', 'Женский']),
-    colorForText: ko.observable(),
-    colorForCells: ko.observable(),
-    colorForInCells: ko.observable()
+    colorForText: ko.observable(""),
+    colorForCells: ko.observable(""),
+    colorForInCells: ko.observable("")
 };
 
 
@@ -30,7 +38,7 @@ window.onload = function(){
   for(let i=0; i< 5; i++ ){
       let data = document.createElement('td');
        if(i==0){
-         data.innerHTML = "<input data-bind='textInput: name'>"
+         data.innerHTML = "<input  disabled data-bind='textInput: name'>"
        }
        else if(i==1){
          data.innerHTML = "<input disabled = 'true' data-bind='textInput: company'>"
@@ -117,8 +125,8 @@ $("#add").click(function(){
   viewModel.phones.push(new Phone(viewModel.nameForAdd(),
                                    $("#select-gender option:selected").text(),
                                    viewModel.dispersiaForAdd(),
-                                   "32",
-                                   "2"));
+                                   disp(viewModel.dispersiaForAdd()),
+                                   mat(viewModel.dispersiaForAdd())));
    table.changeColorText('td > input', viewModel.colorForText());
    table.changeColorCells('.mystyle', viewModel.colorForCells());
    table.changeColorCells('td > input', viewModel.colorForInCells());
@@ -138,7 +146,8 @@ viewModel.colorForInCells.subscribe(function(){
 
 
 viewModel.dispersiaForAdd.subscribe(function(){
-  if(viewModel.nameForAdd() != "" && viewModel.dispersiaForAdd() != ""  ){
+
+  if(viewModel.nameForAdd() != "" && viewModel.dispersiaForAdd() != ""){
      document.getElementById("add").removeAttribute("disabled");
   }else{
     document.getElementById("add").setAttribute("disabled", "true");
