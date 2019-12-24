@@ -1,19 +1,9 @@
 google.charts.load('current', {'packages':['corechart']});
 var table = require('./createTables.js');
+var calculate = require('./calculate.js');
 google.charts.setOnLoadCallback(drawChart);
 var newArray =[];
 newArray.push(new Phone("Имя", "Пол", "Коэффициент", "Адаптация", "Девианта"));
-
-function went(i){
-  return 1+1;
-}
-function disp(coefficient){
-    return (2 * Math.cos(coefficient) / (Math.sqrt(coefficient) * Math.sqrt(coefficient + 1)) + 0.1).toFixed(5)
-}
-
-function mat(coefficient){
-    return ((Math.log(coefficient)/2) * Math.sin(coefficient) + 10).toFixed(5)
-}
 
 function Phone(name,company,gender,dispersia,math){
     this.name = ko.observable(name);
@@ -36,31 +26,7 @@ var viewModel ={
 
 
 window.onload = function(){
-  let div = document.getElementById("nado");
-  div.innerHTML = '<table id = "fack" data-bind = "foreach: phones"><table>';
-  let tr = document.createElement('tr');
-  for(let i=0; i< 5; i++ ){
-      let data = document.createElement('td');
-       if(i==0){
-         data.innerHTML = "<input  disabled data-bind='textInput: name'>"
-       }
-       else if(i==1){
-         data.innerHTML = "<input disabled = 'true' data-bind='textInput: company'>"
-       }
-       else if(i==2){
-         data.innerHTML = "<input disabled = 'true' data-bind='textInput: gender'>"
-       }
-       else if(i==3){
-         data.innerHTML = "<input disabled = 'true' data-bind='textInput: dispersia'>"
-       }
-       else if(i==4){
-         data.innerHTML = "<input disabled = 'true' data-bind='textInput: math'>"
-       }
-       data.setAttribute('class', 'mystyle');
-       tr.appendChild(data);
-  }
-  document.getElementById("fack").appendChild(tr);
-  ko.applyBindings(viewModel);
+  table.buildMyTable(viewModel);
   drawChart();
 }
 
@@ -123,14 +89,15 @@ viewModel.nameForAdd.subscribe(function(){
 
 $("#add").click(function(){
   let options = document.getElementsByClassName('options-for-add');
+
   for(let i = 0; i < options.length; i++){
     options[i].value = "";
   }
   viewModel.phones.push(new Phone(viewModel.nameForAdd(),
                                    $("#select-gender option:selected").text(),
                                    viewModel.dispersiaForAdd(),
-                                   disp(viewModel.dispersiaForAdd()),
-                                   mat(viewModel.dispersiaForAdd())));
+                                   calculate.disp(viewModel.dispersiaForAdd()),
+                                   calculate.mat(viewModel.dispersiaForAdd())));
    table.changeColorText('td > input', viewModel.colorForText());
    table.changeColorCells('.mystyle', viewModel.colorForCells());
    table.changeColorCells('td > input', viewModel.colorForInCells());
